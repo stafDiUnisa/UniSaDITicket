@@ -1,0 +1,161 @@
+{% load i18n %}
+{% load static %}
+
+<div class="it-list-wrapper">
+    {% if category.ticketcategorymodule_set.all %}
+    <ul class="it-list">
+        {% for module in category.ticketcategorymodule_set.all %}
+        <li class="py-2 clearfix">
+            <b>{{ module }}</b>
+            <br>
+            {{ module.created }}
+            {% if module.is_active %}
+                <span class="badge badge-success">
+                    {% trans "attivo" %}
+                </span>
+            {% else %}
+                <span class="badge badge-danger">
+                    {% trans "non attivo" %}
+                </span>
+            {% endif %}
+
+            {% if module.can_be_deleted %}
+            <button type="button"
+                class="mx-1 btn btn-outline-secondary btn-xs float-right"
+                data-toggle="modal"
+                data-target="#deleteModule{{ forloop.counter0 }}">
+                {% trans "Elimina" %}
+            </button>
+            {% else %}
+            <button type="button"
+                class="mx-1 btn btn-secondary btn-xs float-right"
+                title="{% trans 'Questo modulo non può essere eliminato' %}"
+                disabled>
+                {% trans "Elimina" %}
+            </button>
+            {% endif %}
+
+            {% if module.is_active %}
+            <button type="button"
+                class="mx-1 btn btn-outline-danger btn-xs float-right"
+                data-toggle="modal"
+                data-target="#disableModule{{ forloop.counter0 }}">
+                {% trans "Disattiva" %}
+            </button>
+            {% else %}
+            <button type="button"
+                class="mx-1 btn btn-outline-success btn-xs float-right"
+                data-toggle="modal"
+                data-target="#enableModule{{ forloop.counter0 }}">
+                {% trans "Attiva" %}
+            </button>
+            {% endif %}
+            <a role="button"
+               class="mx-1 btn btn-outline-secondary btn-xs float-right"
+               href="{% url 'uni_ticket:manager_category_input_module_clone_preload' structure_slug=structure.slug category_slug=category.slug module_id=module.pk %}">
+                {% trans "Clona" %}
+            </a>
+            <a role="button"
+               class="mx-1 btn btn-outline-secondary btn-xs float-right"
+               href="{% url 'uni_ticket:manager_category_input_module' structure_slug=structure.slug category_slug=category.slug module_id=module.pk %}">
+                {% trans "Modifica" %}
+            </a>
+            <a role="button"
+               class="mx-1 btn btn-outline-secondary btn-xs float-right"
+                style="color: #5c6f82;"
+                onclick="window.open('{% url 'uni_ticket:manager_category_input_module_preview' structure_slug=structure.slug category_slug=category.slug module_id=module.pk %}','winname','directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,resizable=no,width=890,height=600');">
+                {% trans "Vedi anteprima" %}
+            </a>
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="enableModule{{ forloop.counter0 }}">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">
+                                {% trans "Attivazione modulo" %}
+                            </h5>
+                            <button class="close" type="button"
+                                    data-dismiss="modal" aria-label="Close">
+                               <svg class="icon">
+                                  <use xlink:href="{% static 'svg/sprite.svg' %}#it-close"></use>
+                               </svg>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>{% trans "Attivando questo modulo, quello attualmente attivo verrà disabilitato.<br>Vuoi procedere?" %}
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <a role="button" class="btn btn-success"
+                               href="{% url 'uni_ticket:manager_category_input_module_enable' structure_slug=structure.slug category_slug=category.slug module_id=module.pk %}">
+                                {% trans "Si, attiva il modulo" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" tabindex="-1" role="dialog" id="disableModule{{ forloop.counter0 }}">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">
+                                {% trans "Disattivazione modulo" %}
+                            </h5>
+                            <button class="close" type="button"
+                                    data-dismiss="modal" aria-label="Close">
+                               <svg class="icon">
+                                  <use xlink:href="{% static 'svg/sprite.svg' %}#it-close"></use>
+                               </svg>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>{% trans "Disattivando questo modulo, verrà disattivata anche la tipologia di richiesta.<br>Vuoi procedere?" %}
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <a role="button" class="btn btn-danger"
+                               href="{% url 'uni_ticket:manager_category_input_module_disable' structure_slug=structure.slug category_slug=category.slug module_id=module.pk %}">
+                                {% trans "Si, disattiva il modulo" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if module.can_be_deleted %}
+            <div class="modal fade" tabindex="-1" role="dialog" id="deleteModule{{ forloop.counter0 }}">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">
+                                {% trans "Eliminazione modulo" %}
+                            </h5>
+                            <button class="close" type="button"
+                                    data-dismiss="modal" aria-label="Close">
+                               <svg class="icon">
+                                  <use xlink:href="{% static 'svg/sprite.svg' %}#it-close"></use>
+                               </svg>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>{% trans "Vuoi davvero eliminare il modulo " %}
+                               <b>{{ module }}</b> ?
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <a role="button" class="btn btn-danger"
+                               href="{% url 'uni_ticket:manager_category_input_module_delete' structure_slug=structure.slug category_slug=category.slug module_id=module.pk %}">
+                                {% trans "Si, elimina il modulo" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </li>
+
+        {% endfor %}
+    </ul>
+    {% else %}
+    {% trans "Nessun modulo presente" %}
+    {% endif %}
+</div>

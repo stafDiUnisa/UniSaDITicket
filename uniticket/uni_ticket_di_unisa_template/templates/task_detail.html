@@ -1,0 +1,73 @@
+{% load i18n %}
+{% load static %}
+{% load uni_ticket_tags %}
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <tbody>
+            <tr>
+                <th scope="row">{% trans 'Stato' %}</th>
+                <td>
+                    {% if not task.is_public %}
+                    <span class="badge badge-secondary">
+                        {% trans "Riservata agli operatori" %}
+                    </span>
+                    {% endif %}
+                    {{ task.get_status|safe }}
+                </td>
+            </tr>
+            {% if task.is_closed %}
+            <tr>
+                <th scope="row">{% trans 'Data chiusura' %}</th>
+                <td>{{ task.closed_date }}</td>
+            </tr>
+            <tr>
+                <th scope="row">{% trans 'Motivazione chiusura' %}</th>
+                <td>
+                    {{ task.closing_reason | linebreaks }}
+                    {% if task.closing_attachment %}
+                    <a href="{% url 'uni_ticket:download_task_closing_attachment' ticket_id=task.ticket.code task_id=task.code %}">
+                        <svg class="icon">
+                            <use xlink:href="{% static 'svg/sprite.svg' %}#it-clip"></use>
+                        </svg> {{ task.closing_attachment|filename }}
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th scope="row">{% trans 'Priorità' %}</th>
+                <td>{{ priority }}</td>
+            </tr>
+            <tr>
+                <th scope="row">{% trans 'Creato da' %}</th>
+                <td>{{ task.created_by }} - {{ task.created }}</td>
+            </tr>
+            <tr>
+                <th scope="row">{% trans 'Ticket' %}</th>
+                <td>{{ task.ticket }}</td>
+            </tr>
+            <tr>
+                <th scope="row">{% trans 'Oggetto' %}</th>
+                <td>{{ task.subject }}</td>
+            </tr>
+            <tr>
+                <th scope="row">{% trans 'Descrizione' %}</th>
+                <td>{{ task.description | linebreaks }}</td>
+            </tr>
+
+            {% if task.attachment %}
+            <tr>
+                <th scope="row">{% trans 'Allegato' %}</th>
+                <td>
+                    <a href="{% url 'uni_ticket:download_task_attachment' ticket_id=task.ticket.code task_id=task.code %}">
+                        <svg class="icon">
+                            <use xlink:href="{% static 'svg/sprite.svg' %}#it-clip"></use>
+                        </svg> {{ task.attachment|filename }}
+                    </a>
+                </td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>

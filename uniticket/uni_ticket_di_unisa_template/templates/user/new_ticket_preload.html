@@ -1,0 +1,105 @@
+{% extends "base_page_schema.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block menu_links %}
+{% include 'user/main_menu.html' %}
+{% endblock menu_links %}
+
+{% block top_buttons %}
+<a role="button" class="btn btn-outline-secondary"
+   href="{% url 'uni_ticket:user_dashboard' %}">
+    <svg class="icon icon-xs">
+        <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
+    </svg> {% trans "Torna alla Dashboard" %}
+</a>
+{% endblock top_buttons %}
+
+{% block page_content %}
+{% if chosen_structure %}
+    {% if chosen_structure.banner %}
+    <div class="mb-3">
+        <img class="structure_banner" src="{{ chosen_structure.banner.url }}" />
+    </div>
+    {% endif %}
+    {% if alerts %}
+    <div class="alert alert-info my-5 pb-0" role="alert">
+        {% for alert in alerts %}
+            {% if forloop.counter0 %}<hr>{% endif %}
+            <div class="row">
+                <div class="col">
+                    <b>{{ alert.name }}</b>
+                    <br>
+                    {{ alert.text | linebreaks }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endif %}
+<b>
+    <label for="structure_slug">{% trans "Struttura" %}</label>
+</b>
+<div class="bootstrap-select-wrapper">
+    <select id="structure_slug"
+            name="structure_slug"
+            title="{% trans 'A chi è indirizzata la richiesta?' %}"
+            data-live-search="true" data-live-search-placeholder="Cerca...">
+        <option value="">{% trans "Scegli un'opzione" %}</option>
+        {% for struttura in strutture %}
+        <option value="{{ struttura.slug }}"
+        {% if struttura.slug == chosen_structure.slug %} selected {% endif %}>
+            {{ struttura }}
+        </option>
+        {% endfor %}
+    </select>
+</div>
+
+<div style="padding: 1.5rem 0 1rem" >
+    <b><label for="category_slug">{% trans "Tipo di richiesta" %}</label></b>
+    {% if not chosen_structure %}
+    <div class="alert alert-warning" role="alert">
+      {% trans "Seleziona la struttura a cui inoltrare la richiesta" %}
+    </div>
+    {% elif not categorie %}
+    <div class="alert alert-danger" role="alert">
+      {% trans "Nessuna tipologia di richiesta disponibile per questa struttura o per questa tipologia di utente" %}
+    </div>
+    {% else %}
+    <div class="bootstrap-select-wrapper">
+        <select id="category_slug"
+                {% if not chosen_structure %}disabled{% endif %}
+                name="category_slug"
+                title="{% trans 'Di cosa si tratta?' %}"
+                data-live-search="true" data-live-search-placeholder="Cerca...">
+            <option value="">{% trans "Scegli un'opzione" %}</option>
+            {% for categoria in categorie %}
+            <option value="{{ categoria.slug }}">{{ categoria }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock page_content %}
+
+{% block extra_scripts %}
+<script type="text/javascript">
+function replace_last_param(url, new_param){
+    return url.split('/').slice(0,-2).join('/')+'/'+new_param
+}
+
+$('#structure_slug').on('change', function(event) {
+    {% if chosen_structure %}
+    window.location.href = replace_last_param(window.location.href, $(this).val());
+    {% else %}
+    window.location.href = window.location.href + $(this).val();
+    {% endif %}
+});
+
+$('#category_slug').on('change', function(event) {
+    window.location.href = window.location.href + $(this).val();
+});
+</script>
+{% endblock extra_scripts %}

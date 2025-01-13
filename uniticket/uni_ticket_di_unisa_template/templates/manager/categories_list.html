@@ -1,0 +1,93 @@
+{% load i18n %}
+{% load static %}
+{% load uni_ticket_tags %}
+
+<div class="pb-3">
+    <div class="btn-example pt-3 clearfix">
+        <a role="button"
+           class="btn btn-outline-secondary float-right btn-xs mb-3"
+           href="{% url 'uni_ticket:manager_category_add_new' structure_slug=structure.slug %}">
+            <svg class="icon icon-xs">
+                <use xlink:href="{% static 'svg/sprite.svg' %}#it-plus-circle"></use>
+            </svg> {% trans "Aggiungi nuova tipologia di richiesta" %}
+        </a>
+    </div>
+
+    <div class="form-group">
+        <input type="text" id="categoriesFilter" placeholder="{% trans 'Filtra per parole chiave...' %}">
+        <span class="autocomplete-icon" aria-hidden="true">
+            <svg class="icon icon-sm">
+                <use xlink:href="{% static 'svg/sprite.svg' %}#it-search"></use>
+            </svg>
+        </span>
+    </div>
+
+    <div class="row" id="categories-grid">
+      {% for category in categories %}
+      <div class="col-12 col-lg-4 category-box">
+        <!--start card-->
+        <div class="card-wrapper card-space">
+          <div class="card card-bg no-after">
+            <div class="card-body">
+                {% include "manager/category_status.html" %}
+                <a class="read-more" href="{% url 'uni_ticket:manager_category_detail' structure_slug=structure.slug category_slug=category.slug %}">
+                    <h5 class="card-title">{{ category.name }}</h5>
+                </a>
+              <p class="card-text">{{ category.description }}</p>
+              <p class="card-text">
+                  <b>{% trans 'Ufficio competente' %}:</b>
+                  {% if category.organizational_office %}
+                  <a href="{% url 'uni_ticket:manager_office_detail' structure_slug=structure.slug office_slug=category.organizational_office.slug %}">
+                    {{ category.organizational_office.name }}
+                  </a>
+                  {% else %}
+                    {% trans "Nessuno" %}
+                  {% endif %}
+                  <br>
+                  <b>{% trans 'Richieste di tipo notifica' %}:</b>
+                  <svg class="icon icon-xs">
+                  {% if category.is_notification %}
+                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-check"></use>
+                  {% else %}
+                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-close"></use>
+                  {% endif %}
+                  </svg>
+                  <br>
+                  <b>{% trans 'Attiva dal' %}:</b>
+                  {{ category.date_start | default:"-" }}
+                  <br>
+                  <b>{% trans 'Attiva fino al' %}:</b>
+                  {{ category.date_end | default:"-" }}
+                  <br>
+                  <b>{% trans 'Clausole attive' %}:</b>
+                  {{ category.ticketcategorycondition_set.count }}
+                  <br>
+                  <b>{% trans 'Attività predefinite attive' %}:</b>
+                  {{ category.ticketcategorytask_set.count }}
+                  <br>
+                  <b>{% trans 'Notifica email a operatori' %}:</b>
+                  <svg class="icon icon-xs">
+                  {% if category.receive_email %}
+                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-check"></use>
+                  {% else %}
+                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-close"></use>
+                  {% endif %}
+                  </svg>
+                  <br>
+                  <b>{% trans 'Protocollo obbligatorio' %}:</b>
+                  <svg class="icon icon-xs">
+                  {% if category.protocol_required %}
+                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-check"></use>
+                  {% else %}
+                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-close"></use>
+                  {% endif %}
+                  </svg>
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--end card-->
+      </div>
+      {% endfor %}
+    </div>
+</div>

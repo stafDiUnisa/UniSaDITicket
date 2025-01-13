@@ -1,0 +1,116 @@
+{% extends "base_page_schema.html" %}
+
+{% load i18n %}
+{% load static %}
+{% load uni_ticket_tags %}
+
+{% block menu_links %}
+{% include 'user/main_menu.html' %}
+{% endblock menu_links %}
+
+{% block top_buttons %}
+
+{% app_is_installed "chat" as chat_installed %}
+{% app_is_installed "channels" as channels_installed %}
+
+<div class="pb-4 clearfix">
+    <div class="pull-left d-none d-md-block">
+        <a role="button" class="btn btn-outline-secondary" href="{% url 'uni_ticket:user_unassigned_ticket' %}">
+            <span class="badge badge-light">{{ ticket_non_gestiti }}</span> {% trans 'Aperte' %}
+        </a>
+        <a role="button" class="btn btn-outline-secondary" href="{% url 'uni_ticket:user_opened_ticket' %}">
+            <span class="badge badge-light">{{ ticket_aperti }}</span> {% trans 'Assegnate' %}
+        </a>
+        <a role="button" class="btn btn-outline-secondary" href="{% url 'uni_ticket:user_closed_ticket' %}">
+            {% trans 'Chiuse' %}
+        </a>
+        <a role="button" class="btn btn-outline-secondary" href="{% url 'uni_ticket:messages' %}">
+            <svg class="icon icon-xs">
+                <use xlink:href="{% static 'svg/sprite.svg' %}#it-comment"></use>
+            </svg>
+            {% if ticket_messages %}
+            <span class="badge badge-primary">{% trans "Nuovi" %}</span>
+            {% endif %}
+            {% trans 'Messaggi' %}
+        </a>
+    </div>
+    <div class="d-block d-md-none">
+        <nav class="toolbar">
+            <ul>
+                <li>
+                    <a href="{% url 'uni_ticket:user_unassigned_ticket' %}">
+                        {% if ticket_non_gestiti > 0 %}
+                        <div class="badge-wrapper"><span class="toolbar-badge badge-primary">{{ ticket_non_gestiti }}</span></div>
+                        {% endif %}
+                        <svg class="icon"><use xlink:href="{% static 'svg/sprite.svg' %}#it-warning-circle"></use></svg>
+                        <span class="toolbar-label">{% trans 'Aperte' %}</span></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'uni_ticket:user_opened_ticket' %}">
+                        {% if ticket_aperti > 0 %}
+                        <div class="badge-wrapper"><span class="toolbar-badge">{{ ticket_aperti }}</span></div>
+                        {% endif %}
+                        <svg class="icon"><use xlink:href="{% static 'svg/sprite.svg' %}#it-clock"></use></svg>
+                        <span class="toolbar-label">{% trans 'Assegnate' %}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'uni_ticket:user_closed_ticket' %}">
+                        <svg class="icon"><use xlink:href="{% static 'svg/sprite.svg' %}#it-check-circle"></use></svg>
+                        <span class="toolbar-label">{% trans 'Chiuse' %}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'uni_ticket:messages' %}">
+                        {% if ticket_messages %}
+                        <div class="badge-wrapper">
+                            <span class="toolbar-badge badge-primary">
+                                {% trans "Nuovi" %}
+                            </span>
+                        </div>
+                        {% endif %}
+                        <svg class="icon">
+                            <use xlink:href="{% static 'svg/sprite.svg' %}#it-comment"></use>
+                        </svg>
+                        <span class="toolbar-label">{% trans 'Messaggi' %}</span></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="pull-right">
+        {% if chat_installed and channels_installed %}
+        <a role="button"
+           class="btn btn-outline-success"
+           href="{% url 'uni_ticket:new_chat_preload' %}">
+                <svg class="icon icon-xs icon-success">
+                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-user"></use>
+                </svg> {% trans "Avvia chat con operatore" %}
+        </a>
+        {% endif %}
+        <a role="button"
+           class="btn btn-success"
+           href="{% url 'uni_ticket:new_ticket_preload' %}">
+                <svg class="icon icon-xs icon-white">
+                    <use xlink:href="{% static 'svg/sprite.svg' %}#it-plus-circle"></use>
+                </svg> {% trans "Nuova richiesta" %}
+        </a>
+    </div>
+
+</div>
+
+{% endblock top_buttons %}
+
+{% block page_content %}
+    {% uni_ticket_settings_value name="SIMPLE_USER_SHOW_PRIORITY" as user_show_priority %}
+    {% include 'datatables/table.html' with user_show_priority=user_show_priority %}
+{% endblock page_content %}
+
+
+{% block extra_scripts %}
+    {% uni_ticket_settings_value name="SIMPLE_USER_SHOW_PRIORITY" as user_show_priority %}
+    {% url 'uni_ticket:user_ticket_url' as var_url %}
+    {% url 'uni_ticket:user_all_tickets_json' as ajax_url %}
+    {% include 'datatables/datatable_script.html' with var_url=var_url ajax_url=ajax_url user_show_priority=user_show_priority %}
+{% endblock extra_scripts %}

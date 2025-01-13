@@ -1,0 +1,20 @@
+{% extends "user/ticket_add_new.html" %}
+
+{% load i18n %}
+{% load static %}
+{% load uni_ticket_tags %}
+
+{% block header_wrapper %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block top_buttons_surround %}{% endblock %}
+
+{% block form_buttons %}
+<div>
+    <button class="btn btn-success btn-block" type="submit">
+        <svg class="icon icon-xs icon-white">
+            <use xlink:href="{% static 'svg/sprite.svg' %}#it-check"></use>
+        </svg>
+        {% trans "Simula invio richiesta" %}
+    </button>
+</div>
+{% endblock %}

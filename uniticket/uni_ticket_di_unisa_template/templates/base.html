@@ -1,0 +1,251 @@
+<!-- Define default template in your settings -->
+<!-- ( passed by uni_ticket.utils.base_context() -->
+{% extends base_template|default:"bootstrap-italia-base.html" %}
+
+{% load i18n %}
+{% load l10n %}
+{% load static %}
+{% load uni_ticket_tags %}
+
+<!-- Return to Agid native template -->
+{% block extra_head %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/uni_ticket.css' %}">
+<link rel="stylesheet" href="{% static 'css/datatables.css' %}">
+<!--
+<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap4.css' %}">
+-->
+{% endblock extra_head %}
+
+<!-- Page Title -->
+{% block page_title %}
+uniTicket - Ticket System
+{% endblock page_title %}
+
+<!-- Meta Description (for all pages if not overrided) -->
+{% block page_meta_description %}
+Il sistema software di ticketing ed helpdesk per il tracciamento e
+la digitalizzazione dei flussi di richieste e documentali.
+{% endblock page_meta_description %}
+
+<!-- URL link top left -->
+{% block header_slim_org_url %}
+{% endblock header_slim_org_url %}
+
+<!-- URL link logo and org name -->
+{% block header_center_url %}
+{% url 'uni_ticket:manage' structure_slug=structure.slug %}
+{% endblock header_center_url %}
+
+<!-- Name top left -->
+{% block header_slim_org_name %}
+{% if request.user.is_authenticated %}
+{{ request.user }} -
+{% endif %}
+{% current_date as current_date %}
+{{ current_date|localize }}
+Dipartimento di Informatica - Università di Salerno
+{% endblock header_slim_org_name %}
+
+{% block header_slim_sub_menu %}{% endblock header_slim_sub_menu %}
+
+<!-- Mobile slim_org_name -->
+{% block header_slim_mobile_org_name %}
+Dipartimento di Informatica - Università di Salerno
+{% endblock header_slim_mobile_org_name %}
+
+<!-- Make empty areas -->
+{% block header_mobile_arrow %}{% endblock header_mobile_arrow %}
+{% block header_mobile_slim_menu %}{% endblock header_mobile_slim_menu %}
+
+<!-- Logo in Header -->
+{% block header_center_logo %}
+<img class="icon" src="{% static 'images/logo.png' %}" />
+{% endblock header_center_logo %}
+
+<!-- Logo in Header -->
+{% block footer_logo %}
+<!-- <img class="icon" src="{% static 'images/logo.png' %}" /> -->
+<svg class="icon">
+    <use xlink:href="{% static 'svg/sprites.svg' %}#it-pa"></use>
+</svg>
+{% endblock footer_logo %}
+
+<!-- Header Profile / Logout buttons -->
+{% block header_slim_buttons %}
+{% include 'header_slim_buttons.html' %}
+{% endblock header_slim_buttons %}
+
+{% block header_center_search %}{% endblock header_center_search %}
+
+{% block menu_links %}
+{% include 'main_menu.html' %}
+{% endblock menu_links %}
+
+<!-- Container -->
+{% block container %}
+{% localize on %}
+<div class="container">
+    {% block content_title %}
+    <div class="py-md-5 bd-content clearfix title-div">
+        {% include 'title_display.html' %}
+        {% block right_button %}
+        {% endblock right_button %}
+    </div>
+    {% endblock content_title %}
+
+    {% block under_content_title %}{% endblock under_content_title %}
+
+    <div {% block main_div_class %}class="row"{% endblock %}>
+        {% block content_rows %}
+        <main class="col mb-5">
+        {% block container_inner %}{% endblock container_inner %}
+        </main>
+        {% endblock content_rows %}
+    </div>
+    <a href="#" aria-hidden="true"
+       data-attribute="back-to-top"
+       class="back-to-top back-to-top-small">
+        <svg class="icon icon-light">
+          <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-up"></use>
+        </svg>
+    </a>
+</div>
+<!--
+<div class="cookiebar">
+    <p>{% trans "Questo sito utilizza cookie tecnici, analytics e di terze parti." %}
+       <br>
+       {% trans "Proseguendo nella navigazione accetti l’utilizzo dei cookie." %}
+    </p>
+    <div class="cookiebar-buttons">
+        <a href="#" class="cookiebar-btn">
+            {% trans "Preferenze" %} <span class="sr-only">cookies</span>
+        </a>
+        <button data-accept="cookiebar" class="cookiebar-btn cookiebar-confirm">
+            {% trans "Accetto" %}<span class="sr-only"> i cookies</span>
+        </button>
+    </div>
+</div>
+-->
+{% endlocalize %}
+{% endblock container %}
+
+{% block footer_menu_section %}
+{% endblock footer_menu_section %}
+
+{% block header_center_org_name %}
+Dipartimento di informatica
+{% endblock header_center_org_name %}
+
+{% block header_center_org_subname %}
+Università degli Studi di Salerno
+{% endblock header_center_org_subname %}
+
+<!-- Organization name in Footer -->
+{% block footer_org_name %}
+Dipartimento di informatica
+{% endblock footer_org_name %}
+
+<!-- Organization name in Footer -->
+{% block footer_org_subname %}
+Università degli Studi di Salerno
+{% endblock footer_org_subname %}
+
+<!-- Footer bottom section with contacts -->
+{% block footer_contacts_section %}
+<section class="py-4 border-white border-top">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 pb-2">
+            <h4><a href="#" title="Vai alla pagina: Contatti">Contatti</a></h4>
+            <p>
+                <strong>Università degli Studi di Salerno - Dipartimaneto di Informatica</strong><br> Via Giovanni Paolo II, 132 - 84084 Fisciano (SA) P.IVA 00851300657 - C.F. 80018670655
+            </p>
+            <!-- <div class="link-list-wrapper">
+                <ul class="footer-list link-list clearfix">
+                    <li><a class="list-item" href="#" title="Vai alla pagina: Posta Elettronica Certificata">Posta Elettronica Certificata</a></li>
+                    <li><a class="list-item" href="#" title="Vai alla pagina: URP - Ufficio Relazioni con il Pubblico">URP - Ufficio Relazioni con il Pubblico</a></li>
+                </ul>
+            </div> -->
+        </div>
+        <div class="col-lg-4 col-md-4 pb-2">
+            <h4></h4>
+        </div>
+        <div class="col-lg-4 col-md-4 pb-2">
+            <div class="pb-2">
+                <h4><a href="#" title="Vai alla pagina: Seguici su">Seguici su</a></h4>
+                <ul class="list-inline text-left social">
+                    <li class="list-inline-item">
+                        <a class="p-2 text-white" href="https://www.facebook.com/dinfunis" target="_blank">
+                            <svg class="icon icon-sm icon-white align-top">
+                                <use xlink:href="{% static 'svg/sprites.svg' %}#it-facebook"></use>
+                            </svg><span class="visually-hidden">Facebook</span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="p-2 text-white" href="https://www.instagram.com/dinfunisa" target="_blank">
+                            <svg class="icon icon-sm icon-white align-top">
+                                <use xlink:href="{% static 'svg/sprites.svg' %}#it-instagram"></use>
+                            </svg><span class="visually-hidden">Instagram</span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="p-2 text-white" href="https://www.linkedin.com/school/dinfunisa" target="_blank">
+                            <svg class="icon icon-sm icon-white align-top">
+                                <use xlink:href="{% static 'svg/sprites.svg' %}#it-linkedin"></use>
+                            </svg><span class="visually-hidden">Linkedin</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="pb-2">
+                <h4><a href="https://www.di.unisa.it/" title="Vai alla pagina: Home Dipartimento">Dipartimento</a></h4>
+                <p><a class="p-2 text-white" href="https://www.di.unisa.it/" title="Vai alla pagina: Home Dipartimento"><svg class="icon icon-sm icon-white align-top">
+                    <use xlink:href="{% static 'svg/sprites.svg' %}#it-link"></use>
+                </svg><span class="visually-hidden">Home Dipartimento</span></a></p>
+                  <!--<form action="#" method="post">
+                    <label for="input-newsletter" class="active">Iscriviti per riceverla</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">@</div>
+                      </div>
+                      <input type="text" class="form-control" id="input-newsletter" name="input-newsletter" placeholder="Scrivi il tuo indirizzo email" >
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+                      </div>
+                    </div>
+                    <button class="btn btn-default pull-right" type="submit">Iscriviti</button>
+                  </form>-->
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock footer_contacts_section %}
+
+{% block header_center_social %}
+<div class="it-socials d-none d-md-flex">
+    <span>{% trans "Seguici su" %}</span>
+    <ul>
+        <li>
+            <a href="https://www.facebook.com/dinfunisa" aria-label="Facebook" target="_blank">
+                <svg class="icon">
+                    <use xlink:href="{% static 'svg/sprites.svg' %}#it-facebook"></use>
+                </svg>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.instagram.com/dinfunisa" aria-label="Instagram" target="_blank">
+                <svg class="icon">
+                <use xlink:href="{% static 'svg/sprites.svg' %}#it-instagram"></use>
+                </svg>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/school/dinfunisa" target="_blank" aria-label="Linkedin">
+                <svg class="icon">
+                <use xlink:href="{% static 'svg/sprites.svg' %}#it-linkedin"></use>
+                </svg>
+            </a>
+        </li>
+    </ul>
+</div>
+{% endblock header_center_social %}

@@ -42,6 +42,7 @@ def test500(request):
 
 
 urlpatterns = [
+    path("{}/clearcache/".format(getattr(settings, "ADMIN_PATH", "admin")), include('clearcache.urls')),
     path("{}/".format(getattr(settings, "ADMIN_PATH", "admin")), admin.site.urls),
     path("test500/", test500, name="test500"),
 ]

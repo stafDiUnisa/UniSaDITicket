@@ -1,0 +1,54 @@
+{% extends "base_page_schema.html" %}
+
+{% load i18n %}
+{% load static %}
+{% load uni_ticket_tags %}
+
+{% block extra_head %}
+{{ block.super }}
+<style>
+.it-header-wrapper .it-nav-wrapper .it-brand-wrapper {
+    padding-left: 0;
+}
+</style>
+{% endblock extra_head %}
+
+{% block header_slim_wrapper %}{% endblock %}
+{% block header_center_right_zone %}{% endblock %}
+
+{% block main_div_class %}{% endblock %}
+
+{% block main_menu %}
+<div class="container"><hr /></div>
+{% endblock main_menu %}
+
+{% block page_content %}
+    {% block user_ticket_head %}
+        {% if category_conditions %}
+        <div class="pb-4">
+            <div class="row">
+                <div class="col">
+                    <div class="card-space card-wrapper">
+                        <div class="card card-bg no-after">
+                            <div class="card-body">
+                                {% include "ticket_detail_category_conditions.html" %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endblock user_ticket_head %}
+
+    {% block ticket_data %}
+        {% include 'ticket_detail.html' with print_version=1 %}
+    {% endblock ticket_data %}
+
+    {{ ticket.input_module.ticket_category.footer_text | markdown | safe  }}
+
+{% endblock page_content %}
+
+{% block footer %}{% endblock %}
+{% block form_buttons %}{% endblock %}
+{% block bottom_scripts %}{% endblock %}

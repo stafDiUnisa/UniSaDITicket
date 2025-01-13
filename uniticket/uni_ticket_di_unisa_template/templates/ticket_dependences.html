@@ -1,0 +1,34 @@
+{% load i18n %}
+{% load static %}
+
+{% if dependences %}
+<div class="it-list-wrapper">
+    <ul class="it-list">
+        {% for dependence in dependences %}
+        <li class="py-2">
+            <b>{{ dependence.main_ticket }}</b>
+            {% if dependence.is_closed %}
+                <span class="badge badge-danger">
+                    {% trans "Chiuso" %}
+                </span>
+            {% else %}
+                <span class="badge badge-success">
+                    {% trans "Assegnato" %}
+                </span>
+            {% endif %}
+            {% if dependence.note %}
+            <br>
+            {{ dependence.note }}
+            {% endif %}
+            <a role="button"
+               class="mx-1 btn btn-outline-secondary btn-xs float-right"
+               href="{% url 'uni_ticket:ticket_detail' ticket_id=dependence.main_ticket.code %}">
+                {% trans "Vai alla richiesta" %}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% else %}
+{% trans "Nessuna dipendenza" %}
+{% endif %}

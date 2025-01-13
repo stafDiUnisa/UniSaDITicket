@@ -1,0 +1,85 @@
+{% extends "base_page_schema.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block menu_links %}
+{% include 'user/main_menu.html' %}
+{% endblock menu_links %}
+
+{% block top_buttons %}
+<a role="button" class="btn btn-outline-secondary"
+   href="{% url 'uni_ticket:user_dashboard' %}">
+    <svg class="icon icon-xs">
+        <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-left"></use>
+    </svg> {% trans "Dashboard" %}
+</a>
+{% endblock top_buttons %}
+
+{% block clean_content %}
+{% if ticket_messages %}
+<!--
+<div class="table-responsive">
+-->
+<div class="table-responsive not-collapsable">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr role="row">
+                <th>{% trans "Richiesta" %}</th>
+<!--
+                <th>Oggetto</th>
+-->
+                <th>{% trans "Tipo" %}</th>
+    <!--
+                <th>Stato</th>
+    -->
+    <!--
+                <th>Priorità</th>
+    -->
+                <th>{% trans "Inizio chat" %}</th>
+                <th>{% trans "Messaggi" %}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tm in ticket_messages %}
+                <tr>
+                    <td>
+                        <a href="{% url 'uni_ticket:ticket_detail' ticket_id=tm.ticket__code %}">
+                            {{ tm.ticket__subject }}
+                        </a>
+                    </td>
+<!--
+                    <td>{{ tm.0.subject }}</td>
+-->
+                    <td>{{ tm.ticket__input_module__ticket_category__name}}</td>
+    <!--
+                    <td>{{ tm.0.get_status }}</td>
+    -->
+    <!--
+                    <td>{{ tm.0.get_priority }}</td>
+    -->
+                    <td>{{ tm.started }}</td>
+                    <td>
+                        {{ tm.total }}
+                        {% if tm.not_read %}
+                            ( {% trans "da leggere" %} <span class="badge badge-primary">{{ tm.not_read }}</span> )
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a role="button" class="mx-1 btn btn-outline-primary btn-xs float-right" href="{% url 'uni_ticket:ticket_message' ticket_id=tm.ticket__code %}">
+                            Leggi
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% include 'tickets_messages_pagination.html' %}
+{% else %}
+<div class="alert alert-warning" role="alert">
+  {% trans "Non ci sono messaggi da leggere" %}
+</div>
+{% endif %}
+{% endblock clean_content %}
