@@ -310,10 +310,27 @@ select {
 .filter-option-inner-inner {
     white-space: normal;
 }
-.it-header-center-wrapper, .it-footer-main {
+.it-header-center-wrapper {
+    /* background-color: #8a0000; */
+    background-color: white;
+}
+
+.it-header-slim-wrapper, .it-footer-main {
+    background-color: gray;
+}
+
+.it-header-navbar-wrapper{
     background-color: #8a0000;
 }
 
-.it-header-navbar-wrapper, .it-header-slim-wrapper {
-    background-color: #5f0202;
+.it-footer-main {
+    background-color: lightgray;
+}
+
+.it-footer-main .it-brand-wrapper a {
+    color: black;
+}
+
+.it-header-center-wrapper .it-header-center-content-wrapper .it-brand-wrapper a {
+    color: black;
 }

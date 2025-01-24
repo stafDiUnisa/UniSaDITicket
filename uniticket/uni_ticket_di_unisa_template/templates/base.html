@@ -9,7 +9,13 @@
 
 <!-- Return to Agid native template -->
 {% block extra_head %}
-{{ block.super }}
+<!-- {{ block.super }} -->
+<link rel="icon" type="image/png" href="{% static 'images/favicon-96x96.png' %}" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="{% static 'images/favicon.svg' %}" />
+<link rel="shortcut icon" href="{% static 'images/favicondi.ico' %}" />
+<link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}" />
+<meta name="apple-mobile-web-app-title" content="HD@DI_UniSA" />
+<link rel="manifest" href="{% static 'images/site.webmanifest' %}" />
 <link rel="stylesheet" href="{% static 'css/uni_ticket.css' %}">
 <link rel="stylesheet" href="{% static 'css/datatables.css' %}">
 <!--
@@ -44,14 +50,14 @@ la digitalizzazione dei flussi di richieste e documentali.
 {% endif %}
 {% current_date as current_date %}
 {{ current_date|localize }}
-Dipartimento di Informatica - Università di Salerno
+| Dipartimento di Informatica | Università di Salerno
 {% endblock header_slim_org_name %}
 
 {% block header_slim_sub_menu %}{% endblock header_slim_sub_menu %}
 
 <!-- Mobile slim_org_name -->
 {% block header_slim_mobile_org_name %}
-Dipartimento di Informatica - Università di Salerno
+Dipartimento di Informatica | Università di Salerno
 {% endblock header_slim_mobile_org_name %}
 
 <!-- Make empty areas -->
@@ -60,13 +66,16 @@ Dipartimento di Informatica - Università di Salerno
 
 <!-- Logo in Header -->
 {% block header_center_logo %}
-<img class="icon" src="{% static 'images/logo.png' %}" />
+<img class="icon" src="{% static 'images/LogoDI.png' %}" />
+<!-- <svg class="icon icon-black">
+    <use xlink:href="{% static 'svg/LogoDI.svg' %}"></use>
+</svg> -->
 {% endblock header_center_logo %}
 
 <!-- Logo in Header -->
 {% block footer_logo %}
 <!-- <img class="icon" src="{% static 'images/logo.png' %}" /> -->
-<svg class="icon">
+<svg class="icon icon-black" style="color: black;">
     <use xlink:href="{% static 'svg/sprites.svg' %}#it-pa"></use>
 </svg>
 {% endblock footer_logo %}
@@ -106,7 +115,7 @@ Dipartimento di Informatica - Università di Salerno
     <a href="#" aria-hidden="true"
        data-attribute="back-to-top"
        class="back-to-top back-to-top-small">
-        <svg class="icon icon-light">
+        <svg class="icon icon-light icon-black">
           <use xlink:href="{% static 'svg/sprite.svg' %}#it-arrow-up"></use>
         </svg>
     </a>
@@ -138,7 +147,8 @@ Dipartimento di informatica
 {% endblock header_center_org_name %}
 
 {% block header_center_org_subname %}
-Università degli Studi di Salerno
+Università degli Studi di Salerno <br/>
+DIPARTIMENTO DI ECCELLENZA
 {% endblock header_center_org_subname %}
 
 <!-- Organization name in Footer -->
@@ -153,12 +163,12 @@ Università degli Studi di Salerno
 
 <!-- Footer bottom section with contacts -->
 {% block footer_contacts_section %}
-<section class="py-4 border-white border-top">
+<section class="py-4 border-black border-top text-black">
     <div class="row">
         <div class="col-lg-4 col-md-4 pb-2">
-            <h4><a href="#" title="Vai alla pagina: Contatti">Contatti</a></h4>
+            <h4><a class="text-black" href="#" title="Vai alla pagina: Contatti">Contatti</a></h4>
             <p>
-                <strong>Università degli Studi di Salerno - Dipartimaneto di Informatica</strong><br> Via Giovanni Paolo II, 132 - 84084 Fisciano (SA) P.IVA 00851300657 - C.F. 80018670655
+                <strong>Università degli Studi di Salerno - Dipartimento di Informatica</strong><br> Via Giovanni Paolo II, 132 - 84084 Fisciano (SA) P.IVA 00851300657 - C.F. 80018670655
             </p>
             <!-- <div class="link-list-wrapper">
                 <ul class="footer-list link-list clearfix">
@@ -172,36 +182,36 @@ Università degli Studi di Salerno
         </div>
         <div class="col-lg-4 col-md-4 pb-2">
             <div class="pb-2">
-                <h4><a href="#" title="Vai alla pagina: Seguici su">Seguici su</a></h4>
+                <h4><a class="text-black" href="#" title="Vai alla pagina: Seguici su">Seguici su</a></h4>
                 <ul class="list-inline text-left social">
                     <li class="list-inline-item">
                         <a class="p-2 text-white" href="https://www.facebook.com/dinfunis" target="_blank">
-                            <svg class="icon icon-sm icon-white align-top">
+                            <svg class="icon icon-sm icon-black align-top">
                                 <use xlink:href="{% static 'svg/sprites.svg' %}#it-facebook"></use>
-                            </svg><span class="visually-hidden">Facebook</span>
+                            </svg><span class="visually-hidden text-black">Facebook</span>
                         </a>
                     </li>
                     <li class="list-inline-item">
                         <a class="p-2 text-white" href="https://www.instagram.com/dinfunisa" target="_blank">
-                            <svg class="icon icon-sm icon-white align-top">
+                            <svg class="icon icon-sm icon-black align-top">
                                 <use xlink:href="{% static 'svg/sprites.svg' %}#it-instagram"></use>
-                            </svg><span class="visually-hidden">Instagram</span>
+                            </svg><span class="visually-hidden text-black">Instagram</span>
                         </a>
                     </li>
                     <li class="list-inline-item">
                         <a class="p-2 text-white" href="https://www.linkedin.com/school/dinfunisa" target="_blank">
-                            <svg class="icon icon-sm icon-white align-top">
+                            <svg class="icon icon-sm icon-black align-top">
                                 <use xlink:href="{% static 'svg/sprites.svg' %}#it-linkedin"></use>
-                            </svg><span class="visually-hidden">Linkedin</span>
+                            </svg><span class="visually-hidden text-black">Linkedin</span>
                         </a>
                     </li>
                 </ul>
             </div>
             <div class="pb-2">
-                <h4><a href="https://www.di.unisa.it/" title="Vai alla pagina: Home Dipartimento">Dipartimento</a></h4>
-                <p><a class="p-2 text-white" href="https://www.di.unisa.it/" title="Vai alla pagina: Home Dipartimento"><svg class="icon icon-sm icon-white align-top">
+                <h4><a class="text-black" href="https://www.di.unisa.it/" title="Vai alla pagina: Home Dipartimento">Dipartimento</a></h4>
+                <p><a class="p-2 text-black" href="https://www.di.unisa.it/" title="Vai alla pagina: Home Dipartimento"><svg class="icon icon-sm icon-black align-top">
                     <use xlink:href="{% static 'svg/sprites.svg' %}#it-link"></use>
-                </svg><span class="visually-hidden">Home Dipartimento</span></a></p>
+                </svg><span class="visually-hidden text-black">Home Dipartimento</span></a></p>
                   <!--<form action="#" method="post">
                     <label for="input-newsletter" class="active">Iscriviti per riceverla</label>
                     <div class="input-group">
@@ -223,25 +233,25 @@ Università degli Studi di Salerno
 
 {% block header_center_social %}
 <div class="it-socials d-none d-md-flex">
-    <span>{% trans "Seguici su" %}</span>
+    <span class="text-black">{% trans "Seguici su" %}</span>
     <ul>
         <li>
             <a href="https://www.facebook.com/dinfunisa" aria-label="Facebook" target="_blank">
-                <svg class="icon">
+                <svg class="icon icon-black">
                     <use xlink:href="{% static 'svg/sprites.svg' %}#it-facebook"></use>
                 </svg>
             </a>
         </li>
         <li>
             <a href="https://www.instagram.com/dinfunisa" aria-label="Instagram" target="_blank">
-                <svg class="icon">
+                <svg class="icon icon-black">
                 <use xlink:href="{% static 'svg/sprites.svg' %}#it-instagram"></use>
                 </svg>
             </a>
         </li>
         <li>
             <a href="https://www.linkedin.com/school/dinfunisa" target="_blank" aria-label="Linkedin">
-                <svg class="icon">
+                <svg class="icon icon-black">
                 <use xlink:href="{% static 'svg/sprites.svg' %}#it-linkedin"></use>
                 </svg>
             </a>

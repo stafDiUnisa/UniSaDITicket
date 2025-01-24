@@ -6,6 +6,9 @@ from django.contrib import admin
 from .admin_actions import *
 from .admin_nested_inlines import *
 from .models import *
+# from django_auth_ldap.backend import LDAPBackend
+
+# @admin.site.register(LDAPBackend)
 
 
 @admin.register(TicketCategory)

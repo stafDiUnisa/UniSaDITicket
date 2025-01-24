@@ -37,7 +37,7 @@
                             <input name="remember" type="checkbox" value="Remember Me">{% trans 'Remember Me' %}
                         </label>
                     </div>
-                    <input class="btn btn-lg btn-success btn-block" type='submit' value='{% trans "Login" %}' />
+                    <input class="btn btn-lg btn-primary btn-block" type='submit' value='{% trans "Login" %}' />
                     <input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}../{% endif %}" />
                 </fieldset>
             {% csrf_token %}</form>

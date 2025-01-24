@@ -61,7 +61,7 @@
 {% else %}
     {% settings_value name="LOGIN_URL" as login_url %}
     <a href="{{ login_url }}/?next={{ request.get_full_path }}">
-        <button class="btn btn-primary btn-sm" type="button">
+        <button class="btn btn-primary btn-sm" style="background-color: #06c;border-color: #06c;" type="button">
             {% trans "Accedi" %}
         </button>
     </a>
