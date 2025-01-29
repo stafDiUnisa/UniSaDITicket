@@ -4,7 +4,7 @@
 {% block content_title %}
     <div class="py-md-5 bd-content clearfix">
     <!-- <div class="col-lg-6 p-5 offset-md-3 py-md-5 align-self-center bd-content clearfix"> -->
-        <div class="text text-left text-black">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id cursus justo. Cras pellentesque placerat velit, ut blandit dolor. Proin fringilla nisi ex, ac pretium ex ornare et. Nam laoreet, ex non gravida dignissim, ligula metus mollis leo, et luctus dolor elit pellentesque elit. Sed pretium condimentum ipsum, sed euismod enim viverra nec. Nullam elit mi, feugiat vel rutrum nec, sodales sit amet nunc. Integer sollicitudin, nisl sit amet sodales facilisis, dui elit hendrerit justo, ut auctor nisl metus eu enim. Vivamus iaculis metus quis risus faucibus vestibulum. Suspendisse ornare odio eu ipsum rutrum facilisis vitae vitae dolor. Nulla at risus ex. Curabitur eget tortor venenatis, tincidunt massa sit amet, dapibus mauris. Maecenas at elit a turpis malesuada scelerisque. Aenean et porttitor risus. Sed orci ex, malesuada id consectetur id, mattis ut nisi.</div>
+        <div class="text text-left text-black text-break">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id cursus justo. Cras pellentesque placerat velit, ut blandit dolor. Proin fringilla nisi ex, ac pretium ex ornare et. Nam laoreet, ex non gravida dignissim, ligula metus mollis leo, et luctus dolor elit pellentesque elit. Sed pretium condimentum ipsum, sed euismod enim viverra nec. Nullam elit mi, feugiat vel rutrum nec, sodales sit amet nunc. Integer sollicitudin, nisl sit amet sodales facilisis, dui elit hendrerit justo, ut auctor nisl metus eu enim. Vivamus iaculis metus quis risus faucibus vestibulum. Suspendisse ornare odio eu ipsum rutrum facilisis vitae vitae dolor. Nulla at risus ex. Curabitur eget tortor venenatis, tincidunt massa sit amet, dapibus mauris. Maecenas at elit a turpis malesuada scelerisque. Aenean et porttitor risus. Sed orci ex, malesuada id consectetur id, mattis ut nisi.</div>
 
         {% block right_button %}
         {% endblock %}
@@ -14,18 +14,19 @@
 {% block container_inner %}
 <div class="container col-lg-6 p-5 offset-md-3 align-self-center card">
 {% if request.user.is_authenticated %}
-    <meta http-equiv="REFRESH" content="0;url={% url 'helpdesk:home' %}">
+    <!-- <meta http-equiv="REFRESH" content="0;url={% url 'helpdesk:home' %}"> -->
+    <meta http-equiv="REFRESH" content="0;url=/dashbord">
 {% else %}
     {% include 'messages.html' %}
 
     <!-- <h4 class="float-left"> -->
     <div class="card-title">
-        <h4>
+        <h4 class="text-uppercase">
             {% trans "Effettua l'accesso" %}
         </h4>
     </div>
-    <div class="card-subtitle">
-        <span>Utilizza l'account dei laboratori didattici (xxx00@csedu.unisa.it)</span>
+    <div class="card-subtitle text-muted">
+        <h6 class="fst-italic fw-lighter">Utilizza l'account dei laboratori didattici (xxx00@csedu.unisa.it)</h6>
     </div>
     <div class="card-body">
         <div class="login-panel panel panel-default">

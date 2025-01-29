@@ -19,7 +19,7 @@ _dashboard_name = "dashboard"
 # ticket = 'ticket/<str:ticket_id>'
 ticket = "tickets/<str:ticket_id>"
 urlpatterns = [
-    path("", RedirectView.as_view(url="/{}/".format(_dashboard_name))),
+    path("", RedirectView.as_view(url="/{}/".format(_dashboard_name)), name="home"),
     # path("", generic.noauth_home),
     # Router url di responsabilità su struttura (manager/operator/user)
     re_path(
