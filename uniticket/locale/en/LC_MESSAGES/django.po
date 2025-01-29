@@ -3373,15 +3373,15 @@ msgstr "Sign-in"
 
 #: uni_ticket_bootstrap_italia_template/templates/login.html:26
 msgid "Your username and password didn't match. Please try again."
-msgstr ""
+msgstr "Nome utente e/o password non trovati. Riprova"
 
 #: uni_ticket_bootstrap_italia_template/templates/login.html:37
 msgid "Remember Me"
-msgstr ""
+msgstr "Ricordami"
 
 #: uni_ticket_bootstrap_italia_template/templates/login.html:40
 msgid "Login"
-msgstr ""
+msgstr "Login"
 
 #: uni_ticket_bootstrap_italia_template/templates/logs.html:21
 msgid "Nessun log"

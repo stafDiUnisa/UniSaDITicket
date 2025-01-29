@@ -338,6 +338,11 @@ class TicketCategory(ExpirableModel, TimeStampedModel):
             ticket_category=self, is_active=True).first()
 
         return conf if conf else False
+    
+    def get_anomymous_category(self):
+        model = apps.get_model('uni_ticket', 'TicketCategory')
+        category = model.objects.filter(allow_anonymous=True, is_active=True).order_by("organizational_structure")
+        return category if category else False
 
     def __str__(self):
         return "{}".format(self.name)

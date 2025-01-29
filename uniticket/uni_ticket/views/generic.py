@@ -560,4 +560,18 @@ def download_condition_attachment(request, structure_slug, category_slug, condit
 
 def custom_404(request, exception):
     base_template = getattr(settings,'DEFAULT_BASE_TEMPLATE', '')
+    print(base_template)
     return render(request, '404.html', {'base_template': base_template}, status=404)
+
+def noauth_home(request):
+    model = apps.get_model('uni_ticket', 'TicketCategory')
+    categories = model.objects.filter(allow_anonymous=True, is_active=True).order_by("organizational_structure")
+    org_struct = {}
+    for category in categories:
+        if category.organizational_structure.name in org_struct.keys():
+            org_struct[category.organizational_structure.name].append(category)
+        else:
+            org_struct[category.organizational_structure.name]=[category]
+
+    return render(request, "noauth_home.html", context={"data":org_struct})
+    

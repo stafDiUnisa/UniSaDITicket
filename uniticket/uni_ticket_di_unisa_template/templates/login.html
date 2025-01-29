@@ -3,44 +3,60 @@
 
 {% block content_title %}
     <div class="py-md-5 bd-content clearfix">
-        {% include 'messages.html' %}
-
-        <h4 class="float-left">
-           {% trans "Effettua l'accesso" %}
-        </h4>
+    <!-- <div class="col-lg-6 p-5 offset-md-3 py-md-5 align-self-center bd-content clearfix"> -->
+        <div class="text text-left text-black">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id cursus justo. Cras pellentesque placerat velit, ut blandit dolor. Proin fringilla nisi ex, ac pretium ex ornare et. Nam laoreet, ex non gravida dignissim, ligula metus mollis leo, et luctus dolor elit pellentesque elit. Sed pretium condimentum ipsum, sed euismod enim viverra nec. Nullam elit mi, feugiat vel rutrum nec, sodales sit amet nunc. Integer sollicitudin, nisl sit amet sodales facilisis, dui elit hendrerit justo, ut auctor nisl metus eu enim. Vivamus iaculis metus quis risus faucibus vestibulum. Suspendisse ornare odio eu ipsum rutrum facilisis vitae vitae dolor. Nulla at risus ex. Curabitur eget tortor venenatis, tincidunt massa sit amet, dapibus mauris. Maecenas at elit a turpis malesuada scelerisque. Aenean et porttitor risus. Sed orci ex, malesuada id consectetur id, mattis ut nisi.</div>
 
         {% block right_button %}
         {% endblock %}
     </div>
-    {% endblock content_title %}
+{% endblock content_title %}
 
 {% block container_inner %}
-<div class="container">
+<div class="container col-lg-6 p-5 offset-md-3 align-self-center card">
 {% if request.user.is_authenticated %}
     <meta http-equiv="REFRESH" content="0;url={% url 'helpdesk:home' %}">
 {% else %}
-    <div class="login-panel panel panel-default">
-        <div class="panel-body">
-            <form role="form" method='post' action='./'>
-            {% if form.errors %}
-            <div class="alert alert-danger">{% trans "Your username and password didn't match. Please try again." %}</div>
-            {% endif %}
-                <fieldset>
-                    <div class="form-group">
-                        <input class="form-control" placeholder="Username" name="username" type="text" autofocus>
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" placeholder="Password" name="password" type="password" value="">
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input name="remember" type="checkbox" value="Remember Me">{% trans 'Remember Me' %}
-                        </label>
-                    </div>
-                    <input class="btn btn-lg btn-primary btn-block" type='submit' value='{% trans "Login" %}' />
-                    <input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}../{% endif %}" />
-                </fieldset>
-            {% csrf_token %}</form>
+    {% include 'messages.html' %}
+
+    <!-- <h4 class="float-left"> -->
+    <div class="card-title">
+        <h4>
+            {% trans "Effettua l'accesso" %}
+        </h4>
+    </div>
+    <div class="card-subtitle">
+        <span>Utilizza l'account dei laboratori didattici (xxx00@csedu.unisa.it)</span>
+    </div>
+    <div class="card-body">
+        <div class="login-panel panel panel-default">
+            <div class="panel-body">
+                <form role="form" method='post' action='./'>
+                {% if form.errors %}
+                <div class="alert alert-danger">{% trans "Your username and password didn't match. Please try again." %}</div>
+                {% endif %}
+                    <fieldset>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Username: xxx00@csedu.unisa.it" name="username" type="text" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input name="remember" type="checkbox" value="Remember Me">{% trans 'Remember Me' %}
+                            </label>
+                        </div>
+                        <!-- <div class="text"><a href="/tickets/new/3/3">Password dimenticata</a></div> -->
+                        <input class="btn btn-primary btn-block" type='submit' value='{% trans "Login" %}' />
+                        <div class="btn-group btn-block">
+                            <a href="/tickets/new/3/6" class="btn btn-sm btn-outline-dark" aria-current="page">Password dimenticata</a>
+                            <a href="/tickets/new/3/5" class="btn btn-sm btn-outline-dark">Credenziali dimenticate</a>
+                            <a href="/tickets/new/3/3" class="btn btn-sm btn-outline-dark">Richiesta nuovo account</a>
+                        </div>
+                        <input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}../{% endif %}" />
+                    </fieldset>
+                {% csrf_token %}</form>
+            </div>
         </div>
     </div>
 {% endif %}

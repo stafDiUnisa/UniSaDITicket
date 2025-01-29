@@ -9,7 +9,9 @@
 
 <!-- Return to Agid native template -->
 {% block extra_head %}
-<!-- {{ block.super }} -->
+{{ block.super }}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <link rel="icon" type="image/png" href="{% static 'images/favicon-96x96.png' %}" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="{% static 'images/favicon.svg' %}" />
 <link rel="shortcut icon" href="{% static 'images/favicondi.ico' %}" />
@@ -25,13 +27,14 @@
 
 <!-- Page Title -->
 {% block page_title %}
-uniTicket - Ticket System
+HelpDesk Dipartimento di Informatica - UniSA
 {% endblock page_title %}
 
 <!-- Meta Description (for all pages if not overrided) -->
 {% block page_meta_description %}
 Il sistema software di ticketing ed helpdesk per il tracciamento e
-la digitalizzazione dei flussi di richieste e documentali.
+la digitalizzazione dei flussi di richieste e documentali del Dipartimento
+di Informatica dell'Università degli Studi di Salerno.
 {% endblock page_meta_description %}
 
 <!-- URL link top left -->
@@ -148,7 +151,7 @@ Dipartimento di informatica
 
 {% block header_center_org_subname %}
 Università degli Studi di Salerno <br/>
-DIPARTIMENTO DI ECCELLENZA
+<strong>DIPARTIMENTO DI ECCELLENZA</strong>
 {% endblock header_center_org_subname %}
 
 <!-- Organization name in Footer -->
@@ -211,7 +214,7 @@ Università degli Studi di Salerno
                 <h4><a class="text-black" href="https://www.di.unisa.it/" title="Vai alla pagina: Home Dipartimento">Dipartimento</a></h4>
                 <p><a class="p-2 text-black" href="https://www.di.unisa.it/" title="Vai alla pagina: Home Dipartimento"><svg class="icon icon-sm icon-black align-top">
                     <use xlink:href="{% static 'svg/sprites.svg' %}#it-link"></use>
-                </svg><span class="visually-hidden text-black">Home Dipartimento</span></a></p>
+                </svg><span class="text-black">Home Dipartimento</span></a></p>
                   <!--<form action="#" method="post">
                     <label for="input-newsletter" class="active">Iscriviti per riceverla</label>
                     <div class="input-group">
