@@ -1,13 +1,17 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load uni_ticket_bootstrap_italia_tags %}
 
 {% block content_title %}
     <div class="py-md-5 bd-content clearfix">
     <!-- <div class="col-lg-6 p-5 offset-md-3 py-md-5 align-self-center bd-content clearfix"> -->
-        <div class="text text-left text-black text-break">
+        <div class="text text-justify text-black text-break">
             <p>DINF Support è una piattaforma dedicata che consente a docenti e studenti di inviare richieste di assistenza (ticket) all’Ufficio Tecnico del Dipartimento di Informatica.</p>
             <p>Attraverso il sistema è possibile monitorare lo stato delle segnalazioni e ricevere aggiornamenti in tempo reale.</p>
-            <p>Se hai bisogno di supporto apri un ticket</p>
+            <p>Se hai bisogno di supporto per uno dei segurnti problemi:
+                {% list_ticket_categories%}
+            effettua l'accesso apri un ticket
+            </p>
         </div>
 
         {% block right_button %}

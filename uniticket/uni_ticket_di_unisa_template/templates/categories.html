@@ -1,0 +1,10 @@
+<ul style="font-size: smaller;">
+{% for structure in structures %}
+    <li>{{ structure.name }}</li>
+    <ul class="list-inline">
+    {% for category in structure.categories %}
+        <li class="list-inline-item">- {{ category }}</li>
+    {% endfor %}
+    </ul>
+{% endfor %}
+</ul>
