@@ -4,7 +4,11 @@
 {% block content_title %}
     <div class="py-md-5 bd-content clearfix">
     <!-- <div class="col-lg-6 p-5 offset-md-3 py-md-5 align-self-center bd-content clearfix"> -->
-        <div class="text text-left text-black text-break">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id cursus justo. Cras pellentesque placerat velit, ut blandit dolor. Proin fringilla nisi ex, ac pretium ex ornare et. Nam laoreet, ex non gravida dignissim, ligula metus mollis leo, et luctus dolor elit pellentesque elit. Sed pretium condimentum ipsum, sed euismod enim viverra nec. Nullam elit mi, feugiat vel rutrum nec, sodales sit amet nunc. Integer sollicitudin, nisl sit amet sodales facilisis, dui elit hendrerit justo, ut auctor nisl metus eu enim. Vivamus iaculis metus quis risus faucibus vestibulum. Suspendisse ornare odio eu ipsum rutrum facilisis vitae vitae dolor. Nulla at risus ex. Curabitur eget tortor venenatis, tincidunt massa sit amet, dapibus mauris. Maecenas at elit a turpis malesuada scelerisque. Aenean et porttitor risus. Sed orci ex, malesuada id consectetur id, mattis ut nisi.</div>
+        <div class="text text-left text-black text-break">
+            <p>DINF Support è una piattaforma dedicata che consente a docenti e studenti di inviare richieste di assistenza (ticket) all’Ufficio Tecnico del Dipartimento di Informatica.</p>
+            <p>Attraverso il sistema è possibile monitorare lo stato delle segnalazioni e ricevere aggiornamenti in tempo reale.</p>
+            <p>Se hai bisogno di supporto apri un ticket</p>
+        </div>
 
         {% block right_button %}
         {% endblock %}
@@ -44,8 +48,8 @@
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input name="remember" type="checkbox" value="Remember Me">{% trans 'Remember Me' %}
                             </label>
+                            <input name="remember" type="checkbox" value="Remember Me">{% trans 'Ricordami' %}
                         </div>
                         <!-- <div class="text"><a href="/tickets/new/3/3">Password dimenticata</a></div> -->
                         <input class="btn btn-primary btn-block" type='submit' value='{% trans "Login" %}' />
